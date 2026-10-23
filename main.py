@@ -61,7 +61,7 @@ Examples:
         "-m",
         "--mode",
         default="sequential",
-        help="Quiz mode: sequential, random, or adaptive (default: sequential)",
+        help="Quiz mode: sequential, random, or adaptive",
         metavar="MODE",
     )
     return parser.parse_args()

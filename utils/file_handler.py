@@ -14,7 +14,9 @@ class FlashcardFormatError(Exception):
     pass
 
 
-def load_flashcards(filepath: str | Path, strict: bool = False) -> list["Card"]:
+def load_flashcards(
+    filepath: str | Path, strict: bool = False
+) -> list["Card"]:
     """Load flashcards from a JSON file.
 
     Supports two JSON formats:
@@ -80,7 +82,9 @@ def _extract_cards(data: Any, filepath: str | Path) -> list[Any]:
             )
         cards = data["cards"]
         if not isinstance(cards, list):
-            raise FlashcardFormatError(f"{filepath}: 'cards' value must be a list")
+            raise FlashcardFormatError(
+                f"{filepath}: 'cards' value must be a list"
+            )
         return cards
 
     raise FlashcardFormatError(
@@ -114,11 +118,15 @@ def _validate_cards(
             continue
 
         if "front" not in card or "back" not in card:
-            error_msg = f"{filepath}: Card at index {idx} missing 'front' or 'back'"
+            error_msg = (
+                f"{filepath}: Card at index {idx} missing 'front' or 'back'"
+            )
             if strict:
                 raise FlashcardFormatError(error_msg)
             continue
 
-        validated_cards.append({"front": str(card["front"]), "back": str(card["back"])})
+        validated_cards.append(
+            {"front": str(card["front"]), "back": str(card["back"])}
+        )
 
     return validated_cards

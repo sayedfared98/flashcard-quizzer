@@ -1,13 +1,11 @@
 """Tests for flashcard file loading and validation."""
 
 import json
-import tempfile
 from pathlib import Path
 
 import pytest
 
 from utils.file_handler import FlashcardFormatError, load_flashcards
-from utils.quiz_engine import Card
 
 
 class TestLoadFlashcardsValidFormats:
@@ -265,7 +263,9 @@ class TestLoadFlashcardsEncoding:
             ]
         }
         file_path = tmp_path / "test.json"
-        file_path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        file_path.write_text(
+            json.dumps(data, ensure_ascii=False), encoding="utf-8"
+        )
 
         result = load_flashcards(file_path)
 

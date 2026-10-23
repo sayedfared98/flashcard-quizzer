@@ -1,9 +1,7 @@
 """Integration tests for complete quiz flow."""
 
 import json
-import tempfile
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -52,7 +50,11 @@ class TestQuizFlow:
         quiz = QuizModeFactory.create("sequential", cards)
 
         # Simulate user answers
-        answers = ["4", "london", "A programming language"]  # 2 correct, 1 wrong
+        answers = [
+            "4",
+            "london",
+            "A programming language",
+        ]  # 2 correct, 1 wrong
 
         correct_count = 0
         incorrect_cards: list[Card] = []
@@ -74,7 +76,9 @@ class TestQuizFlow:
         assert len(incorrect_cards) == 1
         assert incorrect_cards[0]["front"] == "What is the capital of France?"
 
-    def test_stats_calculation_perfect_score(self, quiz_data_file: Path) -> None:
+    def test_stats_calculation_perfect_score(
+        self, quiz_data_file: Path
+    ) -> None:
         """Test statistics calculation with perfect score."""
         cards = load_flashcards(quiz_data_file)
         quiz = QuizModeFactory.create("sequential", cards)
@@ -108,7 +112,6 @@ class TestQuizFlow:
         incorrect_cards: list[Card] = []
 
         # Answer 2 questions (1 correct, 1 incorrect)
-        card1 = quiz.get_next_card()
         total += 1
         correct += 1  # Correct answer
 
@@ -170,8 +173,6 @@ class TestQuizFlow:
 
     def test_mixed_case_answers_accepted(self, quiz_data_file: Path) -> None:
         """Test that case-insensitive matching works in quiz."""
-        cards = load_flashcards(quiz_data_file)
-        quiz = QuizModeFactory.create("sequential", cards)
 
         # Test various case combinations
         test_cases = [
@@ -181,8 +182,6 @@ class TestQuizFlow:
             ("Python", "PYTHON", True),  # Different case
             ("Wrong", "4", False),  # Wrong answer
         ]
-
-        quiz_cards = cards.copy()
 
         for user_answer, correct_answer, should_match in test_cases:
             is_match = user_answer.lower() == correct_answer.lower()

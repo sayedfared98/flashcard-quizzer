@@ -112,7 +112,7 @@ class TestRandomMode:
         self, sample_cards: list[Card]
     ) -> None:
         """Test that shuffle produces different order (probabilistic)."""
-        # Create multiple shuffles and verify at least one differs from sequential
+        # Create multiple shuffles, verify at least one differs from sequential
         orders = []
         for _ in range(5):
             quiz = RandomMode(sample_cards)
@@ -149,7 +149,9 @@ class TestRandomMode:
         assert len(first_order) == 3
         assert len(second_order) == 3
 
-    def test_random_mark_incorrect_noop(self, sample_cards: list[Card]) -> None:
+    def test_random_mark_incorrect_noop(
+        self, sample_cards: list[Card]
+    ) -> None:
         """Test that mark_incorrect has no effect in random mode."""
         quiz = RandomMode(sample_cards)
 
@@ -240,7 +242,9 @@ class TestAdaptiveMode:
         # Verify all cards are present
         assert len(all_cards) == len(sample_cards)
 
-    def test_adaptive_reset_clears_history(self, sample_cards: list[Card]) -> None:
+    def test_adaptive_reset_clears_history(
+        self, sample_cards: list[Card]
+    ) -> None:
         """Test that reset clears incorrect card history."""
         quiz = AdaptiveMode(sample_cards)
 
@@ -313,7 +317,9 @@ class TestQuizModeFactory:
         assert isinstance(quiz, SequentialMode)
         assert isinstance(quiz, QuizMode)
 
-    def test_factory_returns_random_mode(self, sample_cards: list[Card]) -> None:
+    def test_factory_returns_random_mode(
+        self, sample_cards: list[Card]
+    ) -> None:
         """Test factory creates RandomMode for 'random'."""
         quiz = QuizModeFactory.create("random", sample_cards)
 
@@ -420,7 +426,9 @@ class TestQuizModeInterface:
         # Should return None
         assert quiz.get_next_card() is None
 
-    def test_mark_incorrect_accepts_card(self, sample_cards: list[Card]) -> None:
+    def test_mark_incorrect_accepts_card(
+        self, sample_cards: list[Card]
+    ) -> None:
         """Test mark_incorrect accepts a Card."""
         quiz = AdaptiveMode(sample_cards)
 

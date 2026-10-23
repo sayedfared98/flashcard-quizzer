@@ -116,7 +116,9 @@ class AdaptiveMode(QuizMode):
 
     def _build_adaptive_deck(self) -> None:
         """Build deck with incorrect cards prioritized."""
-        incorrect_cards: list[Card] = [self.cards[i] for i in self.incorrect_indices]
+        incorrect_cards: list[Card] = [
+            self.cards[i] for i in self.incorrect_indices
+        ]
         correct_cards: list[Card] = [
             self.cards[i]
             for i in range(len(self.cards))
